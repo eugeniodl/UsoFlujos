@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace UsoBufferedStream
 {
-    // Entidad de Producto
     public class Product
     {
         public int Id { get; set; }

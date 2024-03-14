@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace UsoBufferedStream
 {
-    public class ProductBufferedRepository : IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private string _productsFile;
 
-        public ProductBufferedRepository(string productsFile)
+        public ProductRepository(string productsFile)
         {
             _productsFile = productsFile;
         }
@@ -20,20 +20,19 @@ namespace UsoBufferedStream
             using(Stream fs = new FileStream(_productsFile,
                 FileMode.Append))
                 using(Stream bs = new BufferedStream(fs))
-            using(StreamWriter sw = new StreamWriter(bs))
-            {
-                sw.WriteLine($"{product.Id},{product.Name}," +
+                using(StreamWriter sw = new StreamWriter(bs))
+                sw.WriteLine($"{product.Id}," +
+                    $"{product.Name}," +
                     $"{product.Price}");
-            }
         }
 
         public List<Product> GetAll()
         {
             List<Product> products = new List<Product>();
-            using(Stream fs = new FileStream( _productsFile, 
+            using (Stream fs = new FileStream(_productsFile,
                 FileMode.Open))
-                using(Stream bs = new BufferedStream(fs))
-                using (StreamReader sr = new StreamReader(bs))
+            using (Stream bs = new BufferedStream(fs))
+            using (StreamReader sr = new StreamReader(bs))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
@@ -47,7 +46,8 @@ namespace UsoBufferedStream
                     });
                 }
             }
-            return products;
+
+                return products;
         }
     }
 }

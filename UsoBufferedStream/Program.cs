@@ -1,28 +1,25 @@
 ﻿using UsoBufferedStream;
 
-string archivoProductos = "productos.txt";
+string archivoProducto = "productos.txt";
 
-
-IProductRepository productoRepository =
-    new ProductBufferedRepository(archivoProductos);
-
-productoRepository.Add(new Product
-{
-    Id = 3,
-    Name = "Atún",
-    Price = 50m,
-});
+IProductRepository productoRepository 
+    = new ProductRepository(archivoProducto);
 
 productoRepository.Add(new Product
 {
-    Id = 4,
-    Name = "Arroz",
-    Price = 22m,
+    Id = 1,
+    Name = "Product 1",
+    Price = 10.5m
+});
+productoRepository.Add(new Product
+{
+    Id = 2,
+    Name = "Product 2",
+    Price = 20.75m
 });
 
-// Mostrar todos los productos
-Console.WriteLine( "Todos los productos");
+Console.WriteLine(  "Todos los productos");
 foreach (var product in productoRepository.GetAll())
-    Console.WriteLine(  $"Id: {product.Id}, Nombre: {product.Name}, " +
+    Console.WriteLine($"Id: {product.Id}," +
+        $"Nombre: {product.Name}," +
         $"Precio: {product.Price}");
-

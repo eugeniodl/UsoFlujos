@@ -6,21 +6,14 @@
 
     ms.Seek(0, SeekOrigin.Begin);
 
-    using(StreamReader sr = new StreamReader(ms))
-    {
+    using (StreamReader sr = new StreamReader(ms))
         while(!sr.EndOfStream)
-        {
-            Console.WriteLine( sr.ReadLine());
-        }
+            Console.WriteLine(sr.ReadLine());
 
-    }
-
-    using (Stream fs = new FileStream("clientes.txt",
+    using(Stream fs = new FileStream("clientes.txt",
         FileMode.Append, FileAccess.Write))
     {
         using (StreamWriter sw = new StreamWriter(fs))
-        {
             sw.WriteLine("200,Alicia,Espinoza,14523");
-        }
     }
 }
