@@ -14,34 +14,36 @@ namespace UsoBufferedStream
         {
             _productsFile = productsFile;
         }
-        void IProductRepository.Add(Product product)
+
+        public void Add(Product product)
         {
             using(Stream fs = new FileStream(_productsFile,
                 FileMode.Append))
                 using(Stream bs = new BufferedStream(fs))
-            using (StreamWriter sw = new StreamWriter(bs))
+            using(StreamWriter sw = new StreamWriter(bs))
             {
-                sw.WriteLine($"{product.Id},{product.Name},{product.Price}");
+                sw.WriteLine($"{product.Id},{product.Name}," +
+                    $"{product.Price}");
             }
         }
 
-        List<Product> IProductRepository.GetAll()
+        public List<Product> GetAll()
         {
             List<Product> products = new List<Product>();
-            using(Stream fs = new FileStream(_productsFile,
+            using(Stream fs = new FileStream( _productsFile, 
                 FileMode.Open))
                 using(Stream bs = new BufferedStream(fs))
-            using (StreamReader reader = new StreamReader(bs))
+                using (StreamReader sr = new StreamReader(bs))
             {
                 string line;
-                while ((line = reader.ReadLine()) != null)
+                while ((line = sr.ReadLine()) != null)
                 {
                     string[] parts = line.Split(',');
                     products.Add(new Product
                     {
                         Id = int.Parse(parts[0]),
                         Name = parts[1],
-                        Price = decimal.Parse(parts[2]),
+                        Price = decimal.Parse(parts[2])
                     });
                 }
             }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace UsoBufferedStream
 {
+    // Interfaz para el repositorio de productos
     public interface IProductRepository
     {
         void Add(Product product);
